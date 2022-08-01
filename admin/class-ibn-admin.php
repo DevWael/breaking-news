@@ -210,7 +210,7 @@ class Ibn_Admin {
 				1 => esc_html__( 'Invalid request, Cannot find nonce key!', 'ibn' ),
 				2 => esc_html__( 'Invalid nonce code!', 'ibn' ),
 			);
-			if ( isset( $_GET['code'] ) && $_GET['code'] <= count( $messages ) ) {
+			if ( isset( $_GET['code'] ) && $_GET['code'] <= count( $messages ) - 1 ) {
 				?>
                 <div class="notice notice-error is-dismissible">
                     <p><?php echo $messages[ $_GET['code'] ]; ?></p>
