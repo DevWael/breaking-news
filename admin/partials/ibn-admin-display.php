@@ -15,7 +15,8 @@
         <tr>
             <th scope="row"><label for="ibn-title"><?php esc_html_e( 'Breaking News Title', 'ibn' ); ?></label></th>
             <td>
-                <input name="ibn-title" type="text" id="ibn-title" placeholder="Breaking News!" value=""
+                <input name="ibn-title" type="text" id="ibn-title" placeholder="Breaking News!"
+                       value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-title', __( 'Breaking News!' ) ) ) ?>"
                        class="regular-text">
                 <p class="description" id="new-admin-email-description">
 					<?php esc_html_e( 'The title of the breaking news.', 'ibn' ); ?>
@@ -26,7 +27,8 @@
             <th scope="row"><label for="ibn-title-bg"><?php esc_html_e( 'Title Background color', 'ibn' ); ?></label>
             </th>
             <td>
-                <input name="ibn-title-bg" type="text" id="ibn-title-bg" value="#000"
+                <input name="ibn-title-bg" type="text" id="ibn-title-bg"
+                       value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-title-bg', '#000' ) ) ?>"
                        class="ibn-color-picker color-field">
                 <p class="description" id="new-admin-email-description">
 					<?php esc_html_e( 'Breaking news bar background color.', 'ibn' ); ?>
@@ -36,7 +38,8 @@
         <tr>
             <th scope="row"><label for="ibn-title-color"><?php esc_html_e( 'Title Text color', 'ibn' ); ?></label></th>
             <td>
-                <input name="ibn-title-color" type="text" id="ibn-title-color" value="#fff"
+                <input name="ibn-title-color" type="text" id="ibn-title-color"
+                       value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-title-color', '#fff' ) ) ?>"
                        class="ibn-color-picker color-field">
                 <p class="description" id="new-admin-email-description">
 					<?php esc_html_e( 'Breaking news title text color.', 'ibn' ); ?>
@@ -46,7 +49,8 @@
         <tr>
             <th scope="row"><label for="ibn-post-bg"><?php esc_html_e( 'Post Background color', 'ibn' ); ?></label></th>
             <td>
-                <input name="ibn-post-bg" type="text" id="ibn-post-bg" value="#fff"
+                <input name="ibn-post-bg" type="text" id="ibn-post-bg"
+                       value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-post-bg', '#fff' ) ) ?>"
                        class="ibn-color-picker color-field">
                 <p class="description" id="new-admin-email-description">
 					<?php esc_html_e( 'Breaking news post background color.', 'ibn' ); ?>
@@ -56,7 +60,8 @@
         <tr>
             <th scope="row"><label for="ibn-post-color"><?php esc_html_e( 'Post Text color', 'ibn' ); ?></label></th>
             <td>
-                <input name="ibn-post-color" type="text" id="ibn-post-color" value="#000"
+                <input name="ibn-post-color" type="text" id="ibn-post-color"
+                       value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-post-color', '#000' ) ) ?>"
                        class="ibn-color-picker color-field">
                 <p class="description" id="new-admin-email-description">
 					<?php esc_html_e( 'Breaking news post text color.', 'ibn' ); ?>
@@ -71,7 +76,9 @@
                         <span><?php esc_html_e( 'Rounded corners', 'ibn' ); ?></span>
                     </legend>
                     <label for="ibn-rounded-corners">
-                        <input name="ibn-rounded-corners" type="checkbox" id="ibn-rounded-corners" value="1">
+                        <input name="ibn-rounded-corners" type="checkbox"
+                               id="ibn-rounded-corners" <?php checked( Ibn_Settings::get_general_settings_by_key( 'ibn-rounded-corners' ), 1, true ) ?>
+                               value="1">
 						<?php esc_html_e( 'Use rounded corners style', 'ibn' ); ?>
                     </label>
                 </fieldset>
