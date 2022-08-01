@@ -177,6 +177,7 @@ class Ibn_Admin {
 			'ibn-post-bg'         => isset( $_POST['ibn-post-bg'] ) ? sanitize_hex_color( $_POST['ibn-post-bg'] ) : '',
 			'ibn-post-color'      => isset( $_POST['ibn-post-color'] ) ? sanitize_hex_color( $_POST['ibn-post-color'] ) : '',
 			'ibn-rounded-corners' => isset( $_POST['ibn-rounded-corners'] ) ? 1 : 0,
+			'ibn-active'          => isset( $_POST['ibn-active'] ) ? 1 : 0,
 		);
 
 		// Save general settings data to database.

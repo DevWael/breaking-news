@@ -14,6 +14,22 @@
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         <table class="form-table">
             <tr>
+                <th scope="row"><?php esc_html_e( 'Activate news bar', 'ibn' ); ?></th>
+                <td>
+                    <fieldset>
+                        <legend class="screen-reader-text">
+                            <span><?php esc_html_e( 'Activate news bar', 'ibn' ); ?></span>
+                        </legend>
+                        <label for="ibn-active">
+                            <input name="ibn-active" type="checkbox"
+                                   id="ibn-active" <?php checked( Ibn_Settings::get_general_settings_by_key( 'ibn-active' ), 1, true ) ?>
+                                   value="1">
+					        <?php esc_html_e( 'Show/Hide news bar', 'ibn' ); ?>
+                        </label>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
                 <th scope="row"><label for="ibn-title"><?php esc_html_e( 'Breaking News Title', 'ibn' ); ?></label></th>
                 <td>
                     <input name="ibn-title" type="text" id="ibn-title" placeholder="Breaking News!"
