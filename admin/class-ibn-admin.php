@@ -144,7 +144,7 @@ class Ibn_Admin {
 			wp_safe_redirect( add_query_arg( array(
 				'page'   => 'ibn-breaking-news-admin',
 				'result' => 'fail',
-				'code'   => 1, //code will be used to display the error message.
+				'code'   => 0, //code will be used to display the error message.
 			), admin_url( 'admin.php' ) ) );
 			exit;
 		}
@@ -154,7 +154,7 @@ class Ibn_Admin {
 			wp_safe_redirect( add_query_arg( array(
 				'page'   => 'ibn-breaking-news-admin',
 				'result' => 'fail',
-				'code'   => 2,
+				'code'   => 1,
 			), admin_url( 'admin.php' ) ) );
 			exit;
 		}
@@ -164,7 +164,7 @@ class Ibn_Admin {
 			wp_safe_redirect( add_query_arg( array(
 				'page'   => 'ibn-breaking-news-admin',
 				'result' => 'fail',
-				'code'   => 3,
+				'code'   => 2,
 			), admin_url( 'admin.php' ) ) );
 			exit;
 		}
@@ -189,5 +189,28 @@ class Ibn_Admin {
 			'code'   => 0,
 		), admin_url( 'admin.php' ) ) );
 		exit;
+	}
+
+	public function admin_notice() {
+		if ( isset( $_GET['result'] ) && $_GET['result'] == 'success' ) {
+			?>
+            <div class="notice notice-success is-dismissible">
+                <p><?php _e( 'Settings saved successfully.', 'ibn' ); ?></p>
+            </div>
+			<?php
+		} else if ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) {
+			$messages = array(
+				0 => esc_html__( 'You don\'t have the permissions to do this action!', 'ibn' ),
+				1 => esc_html__( 'Invalid request, Cannot find nonce key!', 'ibn' ),
+				2 => esc_html__( 'Invalid nonce code!', 'ibn' ),
+			);
+			if ( isset( $_GET['code'] ) && $_GET['code'] <= count( $messages ) ) {
+				?>
+                <div class="notice notice-error is-dismissible">
+                    <p><?php echo $messages[ $_GET['code'] ]; ?></p>
+                </div>
+				<?php
+			}
+		}
 	}
 }

@@ -163,6 +163,7 @@ class Ibn {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'options_page' );
 		$this->loader->add_action( 'admin_post_ibn_save_settings', $plugin_admin, 'save_options' );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'admin_notice' );
 
 	}
 
