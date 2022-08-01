@@ -132,4 +132,62 @@ class Ibn_Admin {
 		require_once IBN_PLUGIN_DIR . 'admin/partials/ibn-admin-display.php';
 	}
 
+	/**
+	 * Save the plugin options came from POST request from plugin options page.
+	 *
+	 * @return void
+	 */
+	public function save_options() {
+
+		// Check if the current user has permission to save options (only administrators).
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_safe_redirect( add_query_arg( array(
+				'page'   => 'ibn-breaking-news-admin',
+				'result' => 'fail',
+				'code'   => 1, //code will be used to display the error message.
+			), admin_url( 'admin.php' ) ) );
+			exit;
+		}
+
+		// Check if the current request contains nonce code
+		if ( ! isset( $_POST['ibn_nonce'] ) ) {
+			wp_safe_redirect( add_query_arg( array(
+				'page'   => 'ibn-breaking-news-admin',
+				'result' => 'fail',
+				'code'   => 2,
+			), admin_url( 'admin.php' ) ) );
+			exit;
+		}
+
+		// Check if the nonce code is valid.
+		if ( ! wp_verify_nonce( $_POST['ibn_nonce'], 'ibn-settings' ) ) {
+			wp_safe_redirect( add_query_arg( array(
+				'page'   => 'ibn-breaking-news-admin',
+				'result' => 'fail',
+				'code'   => 3,
+			), admin_url( 'admin.php' ) ) );
+			exit;
+		}
+
+		// collect general settings data from POST request.
+		$data = array(
+			'ibn-title'           => isset( $_POST['ibn-title'] ) ? sanitize_text_field( $_POST['ibn-title'] ) : '',
+			'ibn-title-bg'        => isset( $_POST['ibn-title-bg'] ) ? sanitize_hex_color( $_POST['ibn-title-bg'] ) : '',
+			'ibn-title-color'     => isset( $_POST['ibn-title-color'] ) ? sanitize_hex_color( $_POST['ibn-title-color'] ) : '',
+			'ibn-post-bg'         => isset( $_POST['ibn-post-bg'] ) ? sanitize_hex_color( $_POST['ibn-post-bg'] ) : '',
+			'ibn-post-color'      => isset( $_POST['ibn-post-color'] ) ? sanitize_hex_color( $_POST['ibn-post-color'] ) : '',
+			'ibn-rounded-corners' => isset( $_POST['ibn-rounded-corners'] ) ? 1 : 0,
+		);
+
+		// Save general settings data to database.
+		Ibn_Settings::set_general_settings( $data );
+
+		// return to the plugin options page after successful saving data attempt.
+		wp_safe_redirect( add_query_arg( array(
+			'page'   => 'ibn-breaking-news-admin',
+			'result' => 'success',
+			'code'   => 0,
+		), admin_url( 'admin.php' ) ) );
+		exit;
+	}
 }
