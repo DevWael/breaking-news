@@ -1,8 +1,5 @@
 <?php
-
 /**
- * Provide a admin area view for the plugin
- *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://github.com/DevWael
@@ -12,5 +9,76 @@
  * @subpackage Ibn/admin/partials
  */
 ?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<h1><?php esc_html_e( 'Breaking News Settings', 'ibn' ); ?></h1>
+<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+    <table class="form-table">
+        <tr>
+            <th scope="row"><label for="ibn-title"><?php esc_html_e( 'Breaking News Title', 'ibn' ); ?></label></th>
+            <td>
+                <input name="ibn-title" type="text" id="ibn-title" placeholder="Breaking News!" value=""
+                       class="regular-text">
+                <p class="description" id="new-admin-email-description">
+					<?php esc_html_e( 'The title of the breaking news.', 'ibn' ); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="ibn-title-bg"><?php esc_html_e( 'Title Background color', 'ibn' ); ?></label>
+            </th>
+            <td>
+                <input name="ibn-title-bg" type="text" id="ibn-title-bg" value="#000"
+                       class="ibn-color-picker color-field">
+                <p class="description" id="new-admin-email-description">
+					<?php esc_html_e( 'Breaking news bar background color.', 'ibn' ); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="ibn-title-color"><?php esc_html_e( 'Title Text color', 'ibn' ); ?></label></th>
+            <td>
+                <input name="ibn-title-color" type="text" id="ibn-title-color" value="#fff"
+                       class="ibn-color-picker color-field">
+                <p class="description" id="new-admin-email-description">
+					<?php esc_html_e( 'Breaking news title text color.', 'ibn' ); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="ibn-post-bg"><?php esc_html_e( 'Post Background color', 'ibn' ); ?></label></th>
+            <td>
+                <input name="ibn-post-bg" type="text" id="ibn-post-bg" value="#fff"
+                       class="ibn-color-picker color-field">
+                <p class="description" id="new-admin-email-description">
+					<?php esc_html_e( 'Breaking news post background color.', 'ibn' ); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><label for="ibn-post-color"><?php esc_html_e( 'Post Text color', 'ibn' ); ?></label></th>
+            <td>
+                <input name="ibn-post-color" type="text" id="ibn-post-color" value="#000"
+                       class="ibn-color-picker color-field">
+                <p class="description" id="new-admin-email-description">
+					<?php esc_html_e( 'Breaking news post text color.', 'ibn' ); ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row"><?php esc_html_e( 'Rounded corners', 'ibn' ); ?></th>
+            <td>
+                <fieldset>
+                    <legend class="screen-reader-text">
+                        <span><?php esc_html_e( 'Rounded corners', 'ibn' ); ?></span>
+                    </legend>
+                    <label for="ibn-rounded-corners">
+                        <input name="ibn-rounded-corners" type="checkbox" id="ibn-rounded-corners" value="1">
+						<?php esc_html_e( 'Use rounded corners style', 'ibn' ); ?>
+                    </label>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="action" value="ibn_save_settings">
+	<?php wp_nonce_field( 'ibn-settings', 'ibn_nonce' ); ?>
+    <button type="submit" class="button button-primary"><?php esc_html_e( 'Save Changes', 'ibn' ); ?></button>
+</form>

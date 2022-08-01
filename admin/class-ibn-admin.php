@@ -27,7 +27,7 @@ class Ibn_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string $plugin_name The ID of this plugin.
 	 */
 	private $plugin_name;
 
@@ -36,21 +36,22 @@ class Ibn_Admin {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @var      string $version The current version of this plugin.
 	 */
 	private $version;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -98,6 +99,33 @@ class Ibn_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	/**
+	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
+	 * This page will be available only for administrator user role.
+	 *
+	 * @return void
+	 */
+	public function options_page() {
+
+		add_menu_page(
+			esc_html__( 'Breaking News', 'ibn' ),
+			esc_html__( 'Breaking News', 'ibn' ),
+			'manage_options',
+			'ibn-breaking-news-admin',
+			array( $this, 'options_page_html' ),
+			'dashicons-welcome-widgets-menus'
+		);
+
+	}
+
+	/**
+	 * Display the admin page content for this plugin.
+	 * @return void
+	 */
+	public function options_page_html() {
+		require_once IBN_PLUGIN_DIR . 'admin/partials/ibn-admin-display.php';
 	}
 
 }
