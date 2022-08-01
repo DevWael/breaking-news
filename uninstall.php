@@ -29,3 +29,6 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// clean database from plugin settings data.
+delete_option( 'ibn_general_settings' );
