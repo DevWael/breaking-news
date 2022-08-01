@@ -192,14 +192,19 @@ class Ibn_Admin {
 		exit;
 	}
 
+	/**
+	 * Display admin notices after submitting the plugin options page.
+	 * @return void
+	 */
 	public function admin_notice() {
-		if ( isset( $_GET['result'] ) && $_GET['result'] == 'success' ) {
+		if ( isset( $_GET['result'] ) && $_GET['result'] == 'success' ) { // success.
 			?>
             <div class="notice notice-success is-dismissible">
                 <p><?php _e( 'Settings saved successfully.', 'ibn' ); ?></p>
             </div>
 			<?php
-		} else if ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) {
+		} else if ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) { //if failure, display error message.
+            // display error message based on error code
 			$messages = array(
 				0 => esc_html__( 'You don\'t have the permissions to do this action!', 'ibn' ),
 				1 => esc_html__( 'Invalid request, Cannot find nonce key!', 'ibn' ),
