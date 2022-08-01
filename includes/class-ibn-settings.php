@@ -38,15 +38,32 @@ class Ibn_Settings {
 	 * Get specified plugin setting by key.
 	 *
 	 * @param string $key the setting key.
-	 * @return array|null the settings array or null if not found.
+	 *
+	 * @return string the settings data or null if not found.
 	 */
 	public static function get_general_settings_by_key( $key ) {
 		$settings = self::get_general_settings();
+
 		return isset( $settings[ $key ] ) ? $settings[ $key ] : null;
 	}
 
 	/**
+	 * Get specified plugin setting by key with given default value.
+	 *
+	 * @param string $key the setting key.
+	 * @param string $default the setting default value.
+	 *
+	 * @return string the settings array or null if not found.
+	 */
+	public static function get_general_settings_by_key_default( $key, $default ) {
+		$settings = self::get_general_settings();
+
+		return isset( $settings[ $key ] ) ? $settings[ $key ] : $default;
+	}
+
+	/**
 	 * Save the plugin general settings.
+	 *
 	 * @param $settings array the settings array.
 	 *
 	 * @return void
