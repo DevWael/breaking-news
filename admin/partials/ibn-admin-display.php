@@ -32,7 +32,7 @@
             <tr>
                 <th scope="row"><label for="ibn-title"><?php esc_html_e( 'Breaking News Title', 'ibn' ); ?></label></th>
                 <td>
-                    <input name="ibn-title" type="text" id="ibn-title" placeholder="Breaking News!"
+                    <input name="ibn-title" type="text" id="ibn-title" placeholder="<?php esc_attr_e( 'Breaking News!', 'ibn' ); ?>"
                            value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-title', __( 'Breaking News!' ) ) ) ?>"
                            class="regular-text">
                     <p class="description" id="new-admin-email-description">
