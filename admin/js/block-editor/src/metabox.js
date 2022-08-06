@@ -11,6 +11,7 @@ import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import api from '@wordpress/api';
 import CustomTitle from './customTitle';
+import ExpiryDate from './expiryDate';
 
 export default class Metabox extends Component {
 	constructor() {
@@ -135,6 +136,9 @@ export default class Metabox extends Component {
 				<Divider />
 				{ /* render the custom title component */ }
 				<CustomTitle />
+				<Divider />
+				{ /* render the expiry date toggle and date picker component */ }
+				<ExpiryDate />
 			</PluginDocumentSettingPanel>
 		);
 	}
