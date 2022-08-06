@@ -77,6 +77,7 @@ class Ibn {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+		$this->define_post_metabox();
 		$this->define_public_hooks();
 
 	}
@@ -105,6 +106,11 @@ class Ibn {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ibn-settings.php';
 
 		/**
+		 * The class responsible for display the breaking news post meta-box.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ibn-metabox.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
@@ -128,6 +134,20 @@ class Ibn {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-ibn-public.php';
 
 		$this->loader = new Ibn_Loader();
+
+	}
+
+	/**
+	 * Define the meta box that will be displayed on the post edit page.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_post_metabox() {
+
+		$ibn_metabox = new Ibn_Metabox($this->get_plugin_name(), $this->get_version());
+
+		$this->loader->add_action( 'init', $ibn_metabox, 'gutenberg_metabox' );
 
 	}
 
