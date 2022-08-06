@@ -202,6 +202,8 @@ class Ibn {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'get_header', $plugin_public, 'modify_header' );
+		$this->loader->add_filter( 'render_block', $plugin_public, 'append_to_fse_themes', 10, 2 );
 
 	}
 

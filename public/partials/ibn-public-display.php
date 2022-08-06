@@ -1,16 +1,22 @@
 <?php
 
 /**
- * Provide a public-facing view for the plugin
+ * Display the breaking news bar on the front-end.
  *
- * This file is used to markup the public-facing aspects of the plugin.
+ * This file can be overridden by the theme.
  *
- * @link       https://github.com/DevWael
- * @since      1.0.0
- *
- * @package    Ibn
- * @subpackage Ibn/public/partials
+ * To override this file, copy this file to the theme's root directory/ibn-templates/ibn-public-display.php directory.
  */
 ?>
+<div class="ibn-news-ticker radius">
+    <div class="ticker-title">
+        <h3>Breaking News</h3>
+    </div>
+    <div class="ticker-content animated marquee">
+        <a href="#">
+            FIFA president says he'll resign amid corruption scandal
+            FIFA president says he'll resign amid corruption scandal
+        </a>
+    </div>
+</div>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->

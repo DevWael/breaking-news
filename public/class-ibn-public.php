@@ -100,4 +100,59 @@ class Ibn_Public {
 
 	}
 
+	/**
+	 * Modify the header of the theme to add breaking news bar
+	 *
+	 * @param $name string header name
+	 * @param $args array header arguments
+	 *
+	 * @return void
+	 */
+	function modify_header( $name = null, $args = array() ) {
+		remove_action( 'get_header', [ $this, 'modify_header' ] );
+		get_header( $name, $args );
+		if ( file_exists( get_template_directory() . '/ibn-templates/ibn-public-display.php' ) ) {
+			include_once get_template_directory() . '/ibn-templates/ibn-public-display.php';
+		} else {
+			include_once IBN_PLUGIN_DIR . 'public/partials/ibn-public-display.php';
+		}
+	}
+
+	/**
+	 * Add support for full site editing themes and add the ability to modify the header.
+	 *
+	 * @param $block_content
+	 * @param $block
+	 *
+	 * @return mixed|string
+	 */
+	function append_to_fse_themes( $block_content, $block ) {
+
+		if ( is_admin() || wp_is_json_request() ) {
+			return $block_content;
+		}
+
+		// If the get_header action ran we use the classic output method above.
+		if ( did_action( 'get_header' ) ) {
+			return $block_content;
+		}
+
+		if ( 'core/template-part' !== $block['blockName'] ) {
+			return $block_content;
+		}
+
+		if ( isset( $block['attrs']['tagName'] ) && 'header' == $block['attrs']['tagName'] ) {
+			ob_start();
+			if ( file_exists( get_template_directory() . '/ibn-templates/ibn-public-display.php' ) ) {
+				include_once get_template_directory() . '/ibn-templates/ibn-public-display.php';
+			} else {
+				include_once IBN_PLUGIN_DIR . 'public/partials/ibn-public-display.php';
+			}
+			$breaking_news_bar_content = ob_get_clean();
+
+			return $block_content . $breaking_news_bar_content;
+		}
+
+		return $block_content;
+	}
 }
