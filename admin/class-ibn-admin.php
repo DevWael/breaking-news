@@ -97,6 +97,11 @@ class Ibn_Admin {
 		 * class.
 		 */
 
+        //todo: load only on post edit page
+		wp_enqueue_script( $this->plugin_name . '-metabox', plugin_dir_url( __FILE__ ) . 'js/classic-editor/metabox.js', array(
+			'jquery',
+		), $this->version, true );
+
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js', array(
 			'jquery',
