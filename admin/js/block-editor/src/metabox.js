@@ -1,6 +1,7 @@
 import {
 	ToggleControl,
 	PanelRow,
+	__experimentalDivider as Divider,
 	Placeholder,
 	Spinner,
 } from '@wordpress/components';
@@ -9,6 +10,7 @@ import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import api from '@wordpress/api';
+import CustomTitle from './customTitle';
 
 export default class Metabox extends Component {
 	constructor() {
@@ -130,6 +132,9 @@ export default class Metabox extends Component {
 						} }
 					/>
 				</PanelRow>
+				<Divider />
+				{ /* render the custom title component */ }
+				<CustomTitle />
 			</PluginDocumentSettingPanel>
 		);
 	}
