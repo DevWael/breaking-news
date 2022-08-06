@@ -56,7 +56,9 @@ class Ibn_Metabox {
 	}
 
 	public function gutenberg_metabox() {
-		register_block_type( IBN_PLUGIN_DIR . 'admin/js/block-editor/build' );
+		if ( function_exists( 'register_block_type' ) ) {
+			register_block_type( IBN_PLUGIN_DIR . 'admin/js/block-editor/build' );
+		}
 
 		register_setting(
 			'ibn',
