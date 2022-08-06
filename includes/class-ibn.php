@@ -148,6 +148,8 @@ class Ibn {
 		$ibn_metabox = new Ibn_Metabox($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action( 'init', $ibn_metabox, 'gutenberg_metabox' );
+		$this->loader->add_action( 'add_meta_boxes', $ibn_metabox, 'register_meta_boxes' );
+		$this->loader->add_action( 'save_post', $ibn_metabox, 'save_post',10,2 );
 
 	}
 
