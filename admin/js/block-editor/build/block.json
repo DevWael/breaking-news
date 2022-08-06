@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "ibn-breaking-news/ibn",
+  "version": "0.1.0",
+  "title": "Breaking News",
+  "category": "text",
+  "icon": "smiley",
+  "description": "Display breaking news bar at the top of the wordpress website.",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "ibn",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}
