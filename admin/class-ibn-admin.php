@@ -61,20 +61,17 @@ class Ibn_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
+        // get current admin screen.
+		$current_screen = get_current_screen();
+		if ( isset( $current_screen->post_type ) && $current_screen->post_type === 'post' ) {
+			// we are on post edit page
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-admin.css', array(), $this->version, 'all' );
+		}
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ibn_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ibn_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-admin.css', array(), $this->version, 'all' );
+		if ( $current_screen->id === 'toplevel_page_ibn-breaking-news-admin' ) {
+			// we are on options page
+			wp_enqueue_style( 'wp-color-picker' );
+		}
 
 	}
 
@@ -84,29 +81,23 @@ class Ibn_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+		// get current admin screen.
+		$current_screen = get_current_screen();
+		if ( isset( $current_screen->post_type ) && $current_screen->post_type === 'post' ) {
+			// we are on post edit page
+			wp_enqueue_script( $this->plugin_name . '-metabox', plugin_dir_url( __FILE__ ) . 'js/classic-editor/metabox.js', array(
+				'jquery',
+			), $this->version, true );
+		}
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ibn_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ibn_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-        //todo: load only on post edit page
-		wp_enqueue_script( $this->plugin_name . '-metabox', plugin_dir_url( __FILE__ ) . 'js/classic-editor/metabox.js', array(
-			'jquery',
-		), $this->version, true );
-
-		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js', array(
-			'jquery',
-			'wp-color-picker'
-		), $this->version, true );
+		if ( $current_screen->id === 'toplevel_page_ibn-breaking-news-admin' ) {
+			// we are on options page
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js', array(
+				'jquery',
+				'wp-color-picker'
+			), $this->version, true );
+		}
 
 	}
 
@@ -211,7 +202,7 @@ class Ibn_Admin {
             </div>
 			<?php
 		} else if ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) { //if failure, display error message.
-            // display error message based on error code
+			// display error message based on error code
 			$messages = array(
 				0 => esc_html__( 'You don\'t have the permissions to do this action!', 'ibn' ),
 				1 => esc_html__( 'Invalid request, Cannot find nonce key!', 'ibn' ),
