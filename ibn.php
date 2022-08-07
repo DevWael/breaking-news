@@ -39,26 +39,6 @@ define( 'IBN_VERSION', '1.0.0' );
 define( 'IBN_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'IBN_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-ibn-activator.php
- */
-function activate_ibn() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ibn-activator.php';
-	Ibn_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-ibn-deactivator.php
- */
-function deactivate_ibn() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ibn-deactivator.php';
-	Ibn_Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_ibn' );
-register_deactivation_hook( __FILE__, 'deactivate_ibn' );
 
 /**
  * The core plugin class that is used to define internationalization,
