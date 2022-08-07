@@ -36,7 +36,10 @@ do_action( 'ibn_before_breaking_news_bar' ); // hook before the breaking news ba
         </div>
         <div class="ticker-content animated">
             <a href="<?php echo esc_url( $permalink ); ?>" title="<?php echo esc_html( $title ) ?>">
-				<?php echo esc_html( $custom_title ? $custom_title : $title ) ?>
+				<?php
+				echo esc_html( $title );
+				echo ( $custom_title && $title ) ? ' | ' : '';
+				echo $custom_title ? esc_html( $custom_title ) : ''; ?>
             </a>
         </div>
     </div>
