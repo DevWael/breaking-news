@@ -154,13 +154,32 @@
 // display the active post
 $current_news_post_id = get_option( 'ibn_breaking_news_post_id' );
 if ( $current_news_post_id && is_numeric( $current_news_post_id ) ) {
-	//todo: check if the post has expiry date and if it is expired, then don't display it
 	?>
     <br>
     <hr>
     <h4><?php esc_html_e( 'Current Breaking News Post:', 'ibn' ); ?></h4>
     <div class="ibn-current-active-post">
 		<?php edit_post_link( get_the_title( $current_news_post_id ), '<strong>', '</strong>', $current_news_post_id ) ?>
+		<?php
+		$post_expiry_toggle = get_post_meta( $current_news_post_id, 'ibn_post_expiry_date_toggle', true );
+		if ( $post_expiry_toggle ) {
+			$post_expiry_date = get_post_meta( $current_news_post_id, 'ibn_post_expiry_date', true );
+			if ( $post_expiry_date ) {
+				$date_object = DateTime::createFromFormat( 'Y-m-d\TH:i', $post_expiry_date );
+				if ( $date_object ) {
+					//check if the date is expired.
+					if ( $date_object->getTimestamp() < time() ) {
+						?>
+                        <strong class="ibn-expired-post">
+                            - <?php esc_html_e( 'Expired', 'ibn' ); ?>
+                        </strong>
+						<?php
+					}
+				}
+
+			}
+		}
+		?>
     </div>
 	<?php
 }
