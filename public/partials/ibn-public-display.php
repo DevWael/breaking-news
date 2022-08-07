@@ -21,7 +21,7 @@ $title  = isset( $bar_options['ibn-title'] ) ? $bar_options['ibn-title'] : __( '
     <div class="ticker-title">
         <h3><?php echo esc_html( $title ); ?></h3>
     </div>
-    <div class="ticker-content animated marquee">
+    <div class="ticker-content animated">
         <a href="#">
             FIFA president says he'll resign amid corruption scandal
             FIFA president says he'll resign amid corruption scandal
