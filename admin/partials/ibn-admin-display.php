@@ -17,6 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 <div class="wrap">
     <h1><?php esc_html_e( 'Breaking News Settings', 'ibn' ); ?></h1>
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+        <?php do_action( 'ib_before_options_page_form_fields' ); ?>
         <table class="form-table">
             <tr>
                 <th scope="row"><?php esc_html_e( 'Activate news bar', 'ibn' ); ?></th>
@@ -153,6 +154,7 @@ if ( ! defined( 'WPINC' ) ) {
         <input type="hidden" name="action" value="ibn_save_settings">
 		<?php wp_nonce_field( 'ibn-settings', 'ibn_nonce' ); ?>
         <button type="submit" class="button button-primary"><?php esc_html_e( 'Save Changes', 'ibn' ); ?></button>
+	    <?php do_action( 'ib_after_options_page_form_fields' ); ?>
     </form>
 </div>
 <?php
