@@ -181,6 +181,8 @@ class Ibn_Admin {
 			'ibn-title-color'     => isset( $_POST['ibn-title-color'] ) ? sanitize_hex_color( $_POST['ibn-title-color'] ) : '',
 			'ibn-post-bg'         => isset( $_POST['ibn-post-bg'] ) ? sanitize_hex_color( $_POST['ibn-post-bg'] ) : '',
 			'ibn-post-color'      => isset( $_POST['ibn-post-color'] ) ? sanitize_hex_color( $_POST['ibn-post-color'] ) : '',
+			'ibn-bar-placement'   => ( isset( $_POST['ibn-bar-placement'] ) && $_POST['ibn-bar-placement'] === 'manual' ) ? 'manual' : 'automatic',
+			'ibn-css-selector'    => isset( $_POST['ibn-css-selector'] ) ? sanitize_text_field( $_POST['ibn-css-selector'] ) : '',
 			'ibn-rounded-corners' => isset( $_POST['ibn-rounded-corners'] ) ? 1 : 0,
 			'ibn-active'          => isset( $_POST['ibn-active'] ) ? 1 : 0,
 		);

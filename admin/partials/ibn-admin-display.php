@@ -24,7 +24,7 @@
                             <input name="ibn-active" type="checkbox"
                                    id="ibn-active" <?php checked( Ibn_Settings::get_general_settings_by_key( 'ibn-active' ), 1, true ) ?>
                                    value="1">
-					        <?php esc_html_e( 'Show/Hide news bar', 'ibn' ); ?>
+							<?php esc_html_e( 'Show/Hide news bar', 'ibn' ); ?>
                         </label>
                     </fieldset>
                 </td>
@@ -32,7 +32,8 @@
             <tr>
                 <th scope="row"><label for="ibn-title"><?php esc_html_e( 'Breaking News Title', 'ibn' ); ?></label></th>
                 <td>
-                    <input name="ibn-title" type="text" id="ibn-title" placeholder="<?php esc_attr_e( 'Breaking News!', 'ibn' ); ?>"
+                    <input name="ibn-title" type="text" id="ibn-title"
+                           placeholder="<?php esc_attr_e( 'Breaking News!', 'ibn' ); ?>"
                            value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-title', __( 'Breaking News!' ) ) ) ?>"
                            class="regular-text">
                     <p class="description" id="new-admin-email-description">
@@ -103,6 +104,44 @@
 							<?php esc_html_e( 'Use rounded corners style', 'ibn' ); ?>
                         </label>
                     </fieldset>
+                </td>
+            </tr>
+            <tr class="ibn-bar-placement">
+                <th scope="row"><?php esc_html_e( 'Bar placement', 'ibn' ); ?></th>
+                <td>
+                    <fieldset>
+                        <label>
+                            <input type="radio" name="ibn-bar-placement" value="automatic"
+								<?php checked( Ibn_Settings::get_general_settings_by_key( 'ibn-bar-placement' ), 'automatic', true ) ?>>
+							<?php esc_html_e( 'Automatic', 'ibn' ); ?>
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="ibn-bar-placement"
+                                   value="manual" <?php checked( Ibn_Settings::get_general_settings_by_key( 'ibn-bar-placement' ), 'manual', true ) ?>>
+							<?php esc_html_e( 'Manual', 'ibn' ); ?>
+                        </label>
+                        <br>
+                        <p class="description">
+							<?php esc_html_e( 'Choose the manual option and add css selector to the header if you feel uncomfortable with the current bar placement.',
+								'ibn' ); ?>
+                        </p>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr class="ibn-css-selector">
+                <th scope="row"><label for="ibn-css-selector"><?php esc_html_e( 'CSS Selector', 'ibn' ); ?></label></th>
+                <td>
+                    <input name="ibn-css-selector" type="text" id="ibn-css-selector"
+                           placeholder="<?php esc_attr_e( 'header#masthead', 'ibn' ); ?>"
+                           value="<?php echo esc_attr( Ibn_Settings::get_general_settings_by_key_default( 'ibn-css-selector', '' ) ) ?>"
+                           class="regular-text">
+                    <p class="description" id="new-admin-email-description">
+						<?php esc_html_e( 'Write css selector here.', 'ibn' ); ?>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors" target="_blank">
+							<?php esc_html_e( 'Learn more.', 'ibn' ); ?>
+                        </a>
+                    </p>
                 </td>
             </tr>
         </table>
