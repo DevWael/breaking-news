@@ -121,6 +121,8 @@ class Ibn_Public {
 			return;
 		}
 
+		$options = $this->breaking_news_options();
+
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -133,8 +135,11 @@ class Ibn_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-public.js', array( 'jquery' ), $this->version, true );
+		wp_localize_script( $this->plugin_name, 'ibn_obj', array(
+			'header_placement' => isset( $options['ibn-bar-placement'] ) ? esc_js( $options['ibn-bar-placement'] ) : 'automatic',
+			'header_selector'  => isset( $options['ibn-css-selector'] ) ? esc_js( $options['ibn-css-selector'] ) : '',
+		) );
 	}
 
 	/**
