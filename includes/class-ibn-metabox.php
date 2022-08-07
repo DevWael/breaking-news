@@ -61,11 +61,16 @@ class Ibn_Metabox {
 
 	}
 
+	/**
+	 * Define the meta-box and option keys for gutenberg editor
+	 * @return void
+	 */
 	public function gutenberg_metabox() {
 		if ( function_exists( 'register_block_type' ) ) {
 			register_block_type( IBN_PLUGIN_DIR . 'admin/js/block-editor/build' );
 		}
 
+		// register option key that will hold the breaking news post id.
 		register_setting(
 			'ibn',
 			'ibn_breaking_news_post_id',
@@ -76,10 +81,8 @@ class Ibn_Metabox {
 			]
 		);
 
-		register_meta(
-			'post',
-			'ibn_post_custom_title',
-			[
+		// register meta key that will hold the custom title.
+		register_post_meta( 'post', 'ibn_post_custom_title', [
 				'default'      => '',
 				'show_in_rest' => true,
 				'single'       => true,
@@ -87,12 +90,14 @@ class Ibn_Metabox {
 			]
 		);
 
+		// register meta key that will hold the expiry date toggle status
 		register_post_meta( 'post', 'ibn_post_expiry_date_toggle', [
 			'show_in_rest' => true,
 			'single'       => true,
 			'type'         => 'boolean',
 		] );
 
+		// register meta key that will hold the actual expiry date.
 		register_post_meta( 'post', 'ibn_post_expiry_date', [
 			'show_in_rest' => true,
 			'single'       => true,
@@ -130,6 +135,7 @@ class Ibn_Metabox {
 	public function validate_date( $date, $format = 'Y-m-d\TH:i' ) {
 		$d = DateTime::createFromFormat( $format, $date );
 
+		// check if the date output from the formatted date is equal to the provided date.
 		return $d && $d->format( $format ) == $date;
 	}
 
