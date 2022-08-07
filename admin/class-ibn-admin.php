@@ -65,7 +65,7 @@ class Ibn_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-        // get current admin screen.
+		// get current admin screen.
 		$current_screen = get_current_screen();
 		if ( isset( $current_screen->post_type ) && $current_screen->post_type === 'post' ) {
 			// we are on post edit page
@@ -89,18 +89,30 @@ class Ibn_Admin {
 		$current_screen = get_current_screen();
 		if ( isset( $current_screen->post_type ) && $current_screen->post_type === 'post' ) {
 			// we are on post edit page
-			wp_enqueue_script( $this->plugin_name . '-metabox', plugin_dir_url( __FILE__ ) . 'js/classic-editor/metabox.js', array(
-				'jquery',
-			), $this->version, true );
+			wp_enqueue_script(
+				$this->plugin_name . '-metabox',
+				plugin_dir_url( __FILE__ ) . 'js/classic-editor/metabox.js',
+				array(
+					'jquery',
+				),
+				$this->version,
+				true
+			);
 		}
 
 		if ( $current_screen->id === 'toplevel_page_ibn-breaking-news-admin' ) {
 			// we are on options page
 			wp_enqueue_script( 'wp-color-picker' );
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js', array(
-				'jquery',
-				'wp-color-picker'
-			), $this->version, true );
+			wp_enqueue_script(
+				$this->plugin_name,
+				plugin_dir_url( __FILE__ ) . 'js/ibn-admin.js',
+				array(
+					'jquery',
+					'wp-color-picker',
+				),
+				$this->version,
+				true
+			);
 		}
 
 	}
@@ -141,31 +153,46 @@ class Ibn_Admin {
 
 		// Check if the current user has permission to save options (only administrators).
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_safe_redirect( add_query_arg( array(
-				'page'   => 'ibn-breaking-news-admin',
-				'result' => 'fail',
-				'code'   => 0, //code will be used to display the error message.
-			), admin_url( 'admin.php' ) ) );
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page'   => 'ibn-breaking-news-admin',
+						'result' => 'fail',
+						'code'   => 0, //code will be used to display the error message.
+					),
+					admin_url( 'admin.php' )
+				)
+			);
 			exit;
 		}
 
 		// Check if the current request contains nonce code
 		if ( ! isset( $_POST['ibn_nonce'] ) ) {
-			wp_safe_redirect( add_query_arg( array(
-				'page'   => 'ibn-breaking-news-admin',
-				'result' => 'fail',
-				'code'   => 1,
-			), admin_url( 'admin.php' ) ) );
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page'   => 'ibn-breaking-news-admin',
+						'result' => 'fail',
+						'code'   => 1,
+					),
+					admin_url( 'admin.php' )
+				)
+			);
 			exit;
 		}
 
 		// Check if the nonce code is valid.
 		if ( ! wp_verify_nonce( $_POST['ibn_nonce'], 'ibn-settings' ) ) {
-			wp_safe_redirect( add_query_arg( array(
-				'page'   => 'ibn-breaking-news-admin',
-				'result' => 'fail',
-				'code'   => 2,
-			), admin_url( 'admin.php' ) ) );
+			wp_safe_redirect(
+				add_query_arg(
+					array(
+						'page'   => 'ibn-breaking-news-admin',
+						'result' => 'fail',
+						'code'   => 2,
+					),
+					admin_url( 'admin.php' )
+				)
+			);
 			exit;
 		}
 
@@ -186,11 +213,16 @@ class Ibn_Admin {
 		Ibn_Settings::set_general_settings( $data );
 
 		// return to the plugin options page after successful saving data attempt.
-		wp_safe_redirect( add_query_arg( array(
-			'page'   => 'ibn-breaking-news-admin',
-			'result' => 'success',
-			'code'   => 0,
-		), admin_url( 'admin.php' ) ) );
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page'   => 'ibn-breaking-news-admin',
+					'result' => 'success',
+					'code'   => 0,
+				),
+				admin_url( 'admin.php' )
+			)
+		);
 		exit;
 	}
 
@@ -201,11 +233,11 @@ class Ibn_Admin {
 	public function admin_notice() {
 		if ( isset( $_GET['result'] ) && $_GET['result'] == 'success' ) { // success.
 			?>
-            <div class="notice notice-success is-dismissible">
-                <p><?php _e( 'Settings saved successfully.', 'ibn' ); ?></p>
-            </div>
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e( 'Settings saved successfully.', 'ibn' ); ?></p>
+			</div>
 			<?php
-		} else if ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) { //if failure, display error message.
+		} elseif ( isset( $_GET['result'] ) && $_GET['result'] == 'fail' ) { //if failure, display error message.
 			// display error message based on error code
 			$messages = array(
 				0 => esc_html__( 'You don\'t have the permissions to do this action!', 'ibn' ),
@@ -214,9 +246,9 @@ class Ibn_Admin {
 			);
 			if ( isset( $_GET['code'] ) && $_GET['code'] <= count( $messages ) - 1 ) {
 				?>
-                <div class="notice notice-error is-dismissible">
-                    <p><?php echo $messages[ $_GET['code'] ]; ?></p>
-                </div>
+				<div class="notice notice-error is-dismissible">
+					<p><?php echo $messages[ $_GET['code'] ]; ?></p>
+				</div>
 				<?php
 			}
 		}

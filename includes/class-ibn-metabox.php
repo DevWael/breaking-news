@@ -74,35 +74,46 @@ class Ibn_Metabox {
 		register_setting(
 			'ibn',
 			'ibn_breaking_news_post_id',
-			[
+			array(
 				'default'      => '',
 				'show_in_rest' => true,
 				'type'         => 'number',
-			]
+			)
 		);
 
 		// register meta key that will hold the custom title.
-		register_post_meta( 'post', 'ibn_post_custom_title', [
+		register_post_meta(
+			'post',
+			'ibn_post_custom_title',
+			array(
 				'default'      => '',
 				'show_in_rest' => true,
 				'single'       => true,
 				'type'         => 'string',
-			]
+			)
 		);
 
 		// register meta key that will hold the expiry date toggle status
-		register_post_meta( 'post', 'ibn_post_expiry_date_toggle', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'boolean',
-		] );
+		register_post_meta(
+			'post',
+			'ibn_post_expiry_date_toggle',
+			array(
+				'show_in_rest' => true,
+				'single'       => true,
+				'type'         => 'boolean',
+			)
+		);
 
 		// register meta key that will hold the actual expiry date.
-		register_post_meta( 'post', 'ibn_post_expiry_date', [
-			'show_in_rest' => true,
-			'single'       => true,
-			'type'         => 'string'
-		] );
+		register_post_meta(
+			'post',
+			'ibn_post_expiry_date',
+			array(
+				'show_in_rest' => true,
+				'single'       => true,
+				'type'         => 'string',
+			)
+		);
 	}
 
 	/**

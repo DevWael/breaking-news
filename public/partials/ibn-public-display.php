@@ -30,18 +30,19 @@ $title        = get_the_title( $post_id ); // get the post title.
 $custom_title = get_post_meta( $post_id, 'ibn_post_custom_title', true ); // get the custom title.
 do_action( 'ibn_before_breaking_news_bar' ); // hook before the breaking news bar.
 ?>
-    <div class="ibn-news-ticker<?php echo esc_attr( $radius ) ?>">
-        <div class="ticker-title">
-            <h3><?php echo esc_html( $bar_title ); ?></h3>
-        </div>
-        <div class="ticker-content animated">
-            <a href="<?php echo esc_url( $permalink ); ?>" title="<?php echo esc_html( $title ) ?>">
+	<div class="ibn-news-ticker<?php echo esc_attr( $radius ); ?>">
+		<div class="ticker-title">
+			<h3><?php echo esc_html( $bar_title ); ?></h3>
+		</div>
+		<div class="ticker-content animated">
+			<a href="<?php echo esc_url( $permalink ); ?>" title="<?php echo esc_html( $title ); ?>">
 				<?php
 				echo esc_html( $title );
 				echo ( $custom_title && $title ) ? ' | ' : '';
-				echo $custom_title ? esc_html( $custom_title ) : ''; ?>
-            </a>
-        </div>
-    </div>
+				echo $custom_title ? esc_html( $custom_title ) : '';
+				?>
+			</a>
+		</div>
+	</div>
 <?php
 do_action( 'ibn_after_breaking_news_bar' ); // hook after the breaking news bar.

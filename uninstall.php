@@ -39,8 +39,8 @@ delete_option( 'ibn_breaking_news_post_id' );
 $ibn_meta_keys = array(
 	'ibn_post_custom_title',
 	'ibn_post_expiry_date_toggle',
-	'ibn_post_expiry_date'
+	'ibn_post_expiry_date',
 );
 foreach ( $ibn_meta_keys as $meta_key ) {
-	$wpdb->delete( $wpdb->postmeta, array( 'meta_key' => $meta_key, ), array( '%d' ) );
+	$wpdb->delete( $wpdb->postmeta, array( 'meta_key' => $meta_key ), array( '%d' ) );
 }

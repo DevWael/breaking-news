@@ -145,11 +145,11 @@ class Ibn {
 	 */
 	private function define_post_metabox() {
 
-		$ibn_metabox = new Ibn_Metabox($this->get_plugin_name(), $this->get_version());
+		$ibn_metabox = new Ibn_Metabox( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'init', $ibn_metabox, 'gutenberg_metabox' );
 		$this->loader->add_action( 'add_meta_boxes', $ibn_metabox, 'register_meta_boxes' );
-		$this->loader->add_action( 'save_post', $ibn_metabox, 'save_post',10,2 );
+		$this->loader->add_action( 'save_post', $ibn_metabox, 'save_post', 10, 2 );
 
 	}
 
@@ -220,8 +220,8 @@ class Ibn {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_plugin_name() {
 		return $this->plugin_name;
@@ -230,8 +230,8 @@ class Ibn {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    Ibn_Loader    Orchestrates the hooks of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_loader() {
 		return $this->loader;
@@ -240,8 +240,8 @@ class Ibn {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
+	 * @since     1.0.0
 	 */
 	public function get_version() {
 		return $this->version;

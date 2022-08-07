@@ -122,10 +122,14 @@ class Ibn_Public {
 		// add needed js logic to the front-end so the bar can be displayed in place properly.
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-public.js', array( 'jquery' ), $this->version, true );
 		// send header placement settings to the front end.
-		wp_localize_script( $this->plugin_name, 'ibn_obj', array(
-			'header_placement' => isset( $options['ibn-bar-placement'] ) ? esc_js( $options['ibn-bar-placement'] ) : 'automatic',
-			'header_selector'  => isset( $options['ibn-css-selector'] ) ? esc_js( $options['ibn-css-selector'] ) : '',
-		) );
+		wp_localize_script(
+			$this->plugin_name,
+			'ibn_obj',
+			array(
+				'header_placement' => isset( $options['ibn-bar-placement'] ) ? esc_js( $options['ibn-bar-placement'] ) : 'automatic',
+				'header_selector'  => isset( $options['ibn-css-selector'] ) ? esc_js( $options['ibn-css-selector'] ) : '',
+			)
+		);
 	}
 
 	/**
@@ -181,7 +185,7 @@ class Ibn_Public {
 	 */
 	public function modify_header( $name = null, $args = array() ) {
 		// Remove the current function from the action hook, so it doesn't run again.
-		remove_action( 'get_header', [ $this, 'modify_header' ] );
+		remove_action( 'get_header', array( $this, 'modify_header' ) );
 		// Run the function get_header with the arguments specified from the theme.
 		get_header( $name, $args );
 		// check if the bar should be displayed.
