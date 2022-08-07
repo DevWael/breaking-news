@@ -55,6 +55,32 @@ class Ibn_Public {
 
 	}
 
+	private function breaking_news_options() {
+		return Ibn_Settings::get_general_settings();
+	}
+
+	public function bar_styling() {
+		$options = $this->breaking_news_options();
+		$css     = '';
+		if ( isset( $options['ibn-title-bg'] ) && ! empty( $options['ibn-title-bg'] ) ) {
+			$css .= '.ibn-news-ticker{background-color:' . sanitize_hex_color( $options['ibn-title-bg'] ) . ';}';
+		}
+		if ( isset( $options['ibn-title-color'] ) && ! empty( $options['ibn-title-color'] ) ) {
+			$css .= '.ibn-news-ticker .ticker-title h3{color:' . sanitize_hex_color( $options['ibn-title-color'] ) . ';}';
+		}
+		if ( isset( $options['ibn-post-bg'] ) && ! empty( $options['ibn-post-bg'] ) ) {
+			$css .= '.ibn-news-ticker .ticker-content{background-color:' . sanitize_hex_color( $options['ibn-post-bg'] ) . ';}';
+		}
+		if ( isset( $options['ibn-post-color'] ) && ! empty( $options['ibn-post-color'] ) ) {
+			$css .= '.ibn-news-ticker .ticker-content a{color:' . sanitize_hex_color( $options['ibn-post-color'] ) . ';}';
+		}
+		if ( $css ) {
+			return $css;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
@@ -76,6 +102,9 @@ class Ibn_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-public.css', array(), $this->version, 'all' );
 
+		if ( $this->bar_styling() ) {
+			wp_add_inline_style( $this->plugin_name, $this->bar_styling() );
+		}
 	}
 
 	/**
