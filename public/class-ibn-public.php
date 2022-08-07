@@ -99,6 +99,9 @@ class Ibn_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		if ( ! $this->can_display_bar() ) {
+			return;
+		}
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-public.css', array(), $this->version, 'all' );
 
@@ -113,6 +116,10 @@ class Ibn_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
+
+		if ( ! $this->can_display_bar() ) {
+			return;
+		}
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -131,6 +138,38 @@ class Ibn_Public {
 	}
 
 	/**
+	 * Check if the bar should be displayed.
+	 *
+	 * Check if there is any post to display.
+	 * Check if the post is existing published.
+	 * Check if the post expiry date is not expired.
+	 * Check if the bar is enabled.
+	 * @return bool
+	 */
+	public function can_display_bar() {
+		$status      = true;
+		$bar_options = Ibn_Settings::get_general_settings();
+		// check if user choose to show the bar on the front-end.
+		if ( isset( $bar_options['ibn-active'] ) && $bar_options['ibn-active'] !== 1 ) {
+			$status = false;
+		}
+		$post_id = get_option( 'ibn_breaking_news_post_id' );
+		if ( ! $post_id || ! is_numeric( $post_id ) ) {
+			$status = false;
+		}
+		if ( 'publish' !== get_post_status( $post_id ) ) {
+			$status = false;
+		}
+		$post_expiry_toggle = get_post_meta( $post_id, 'ibn_post_expiry_date_toggle', true );
+		if ( $post_expiry_toggle ) {
+			$post_expiry_date = get_post_meta( $post_id, 'ibn_post_expiry_date', true );
+			//todo check if the date is not expired.
+		}
+
+		return apply_filters( 'ibn_can_display_bar', $status );
+	}
+
+	/**
 	 * Modify the header of the theme to add breaking news bar
 	 *
 	 * @param $name string header name
@@ -138,18 +177,20 @@ class Ibn_Public {
 	 *
 	 * @return void
 	 */
-	function modify_header( $name = null, $args = array() ) {
+	public function modify_header( $name = null, $args = array() ) {
 		// Remove the current function from the action hook, so it doesn't run again.
 		remove_action( 'get_header', [ $this, 'modify_header' ] );
 		// Run the function get_header with the arguments specified from the theme.
 		get_header( $name, $args );
-		// Include the breaking news bar template.
-		if ( file_exists( get_template_directory() . '/ibn-templates/ibn-public-display.php' ) ) {
-			// Include the breaking news bar template from theme directory.
-			include_once get_template_directory() . '/ibn-templates/ibn-public-display.php';
-		} else {
-			// Include the breaking news bar template from plugin directory.
-			include_once IBN_PLUGIN_DIR . 'public/partials/ibn-public-display.php';
+		if ( $this->can_display_bar() ) {
+			// Include the breaking news bar template.
+			if ( file_exists( get_template_directory() . '/ibn-templates/ibn-public-display.php' ) ) {
+				// Include the breaking news bar template from theme directory.
+				include_once get_template_directory() . '/ibn-templates/ibn-public-display.php';
+			} else {
+				// Include the breaking news bar template from plugin directory.
+				include_once IBN_PLUGIN_DIR . 'public/partials/ibn-public-display.php';
+			}
 		}
 	}
 
@@ -161,7 +202,11 @@ class Ibn_Public {
 	 *
 	 * @return mixed|string
 	 */
-	function append_to_fse_themes( $block_content, $block ) {
+	public function append_to_fse_themes( $block_content, $block ) {
+
+		if ( ! $this->can_display_bar() ) {
+			return $block_content;
+		}
 
 		// load block content normally if we are on admin page or there is a json request
 		if ( is_admin() || wp_is_json_request() ) {
