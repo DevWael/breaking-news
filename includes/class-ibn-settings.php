@@ -69,6 +69,7 @@ class Ibn_Settings {
 	 * @return void
 	 */
 	public static function set_general_settings( $settings ) {
+		$settings = apply_filters( 'ibn_general_settings_before_save', $settings );
 		update_option( 'ibn_general_settings', $settings, false );
 	}
 }
