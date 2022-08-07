@@ -150,3 +150,17 @@
         <button type="submit" class="button button-primary"><?php esc_html_e( 'Save Changes', 'ibn' ); ?></button>
     </form>
 </div>
+<?php
+// display the active post
+$current_news_post_id = get_option( 'ibn_breaking_news_post_id' );
+if ( $current_news_post_id && is_numeric( $current_news_post_id ) ) {
+	//todo: check if the post has expiry date and if it is expired, then don't display it
+	?>
+    <br>
+    <hr>
+    <h4><?php esc_html_e( 'Current Breaking News Post:', 'ibn' ); ?></h4>
+    <div class="ibn-current-active-post">
+		<?php edit_post_link( get_the_title( $current_news_post_id ), '<strong>', '</strong>', $current_news_post_id ) ?>
+    </div>
+	<?php
+}
