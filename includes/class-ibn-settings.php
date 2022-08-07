@@ -58,7 +58,7 @@ class Ibn_Settings {
 	public static function get_general_settings_by_key_default( $key, $default ) {
 		$settings = self::get_general_settings();
 
-		return isset( $settings[ $key ] ) ? $settings[ $key ] : $default;
+		return isset( $settings[ $key ] ) ? esc_attr( $settings[ $key ] ) : $default;
 	}
 
 	/**
