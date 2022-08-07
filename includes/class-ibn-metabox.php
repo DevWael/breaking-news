@@ -119,11 +119,12 @@ class Ibn_Metabox {
 	}
 
 	/**
-	 * Validate date against format 2022-08-08T22:06 YYYY-MM-DDTHH:mm
+	 * Validate date against format 2022-08-08T22:06 Y-m-d\TH:i
 	 */
-	public function validate_date( $date ) {
-		//todo: to be implemented.
-		return true;
+	public function validate_date( $date, $format = 'Y-m-d\TH:i' ) {
+		$d = DateTime::createFromFormat( $format, $date );
+
+		return $d && $d->format( $format ) == $date;
 	}
 
 	/**
