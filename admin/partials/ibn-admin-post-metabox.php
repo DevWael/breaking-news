@@ -37,7 +37,7 @@ $min_date = new DateTime();
 				<?php esc_html_e( 'Expiry Date:', 'ibn' ); ?>
 			</label>
 			<input type="datetime-local" name="ibn_post_expiry_date" id="ibn-post-expiry-date"
-				min="<?php echo esc_attr( $min_date->format( 'Y-m-d H:i:s' ) ); ?>"
+				min="<?php echo esc_attr( $min_date->format( 'Y-m-d\TH:i' ) ); ?>"
 				value="<?php echo esc_attr( get_post_meta( $post->ID, 'ibn_post_expiry_date', true ) ); ?>"/>
 		</div>
 	</div>
