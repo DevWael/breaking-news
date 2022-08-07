@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Internal Breaking News
  * Plugin URI:        https://wordpress.org/plugins/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Display breaking news bar at the top of the WordPress website (below the header).
  * Version:           1.0.0
  * Author:            Ahmad Wael
  * Author URI:        https://github.com/DevWael
