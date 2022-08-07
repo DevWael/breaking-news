@@ -168,7 +168,16 @@ class Ibn_Public {
 		$post_expiry_toggle = get_post_meta( $post_id, 'ibn_post_expiry_date_toggle', true );
 		if ( $post_expiry_toggle ) {
 			$post_expiry_date = get_post_meta( $post_id, 'ibn_post_expiry_date', true );
-			//todo check if the date is not expired.
+			if ( $post_expiry_date ) {
+				$date_object = DateTime::createFromFormat( 'Y-m-d\TH:i', $post_expiry_date );
+				if ( ! $date_object ) {
+					$status = false;
+				}
+				//check if the date is expired.
+				if ( $date_object->getTimestamp() < time() ) {
+					$status = false;
+				}
+			}
 		}
 
 		return apply_filters( 'ibn_can_display_bar', $status );
