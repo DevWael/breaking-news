@@ -186,6 +186,9 @@ class Ibn_Metabox {
 			update_post_meta( $post_id, 'ibn_post_expiry_date_toggle', 1 );
 			if ( isset( $_POST['ibn_post_expiry_date'] ) && $this->validate_date( $_POST['ibn_post_expiry_date'] ) ) {
 				update_post_meta( $post_id, 'ibn_post_expiry_date', sanitize_text_field( $_POST['ibn_post_expiry_date'] ) );
+			} else {
+				// delete the expiry date toggle value if it is not a valid date.
+				delete_post_meta( $post_id, 'ibn_post_expiry_date_toggle' );
 			}
 		} else {
 			delete_post_meta( $post_id, 'ibn_post_expiry_date_toggle' );
