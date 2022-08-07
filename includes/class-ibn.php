@@ -145,7 +145,7 @@ class Ibn {
 	 */
 	private function define_post_metabox() {
 
-		$ibn_metabox = new Ibn_Metabox( $this->get_plugin_name(), $this->get_version() );
+		$ibn_metabox = new Ibn_Metabox;
 
 		$this->loader->add_action( 'init', $ibn_metabox, 'gutenberg_metabox' );
 		$this->loader->add_action( 'add_meta_boxes', $ibn_metabox, 'register_meta_boxes' );
