@@ -98,10 +98,13 @@ class Ibn_Public {
 			return;
 		}
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-public.css', array(), $this->version, 'all' );
+		// check if the user want to disable all default styles.
+		if ( ! defined( 'IBN_DISABLE_STYLES' ) || true !== IBN_DISABLE_STYLES ) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ibn-public.css', array(), $this->version, 'all' );
 
-		if ( $this->bar_styling() ) {
-			wp_add_inline_style( $this->plugin_name, $this->bar_styling() );
+			if ( $this->bar_styling() ) {
+				wp_add_inline_style( $this->plugin_name, $this->bar_styling() );
+			}
 		}
 	}
 
