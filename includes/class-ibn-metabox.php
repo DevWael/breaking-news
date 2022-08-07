@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The admin-specific functionality of the plugin.
+ * Metabox-specific functions.
  *
  * @link       https://github.com/DevWael
  * @since      1.0.0
@@ -11,10 +11,7 @@
  */
 
 /**
- * The admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * This class defines all functions related to the plugin meta boxes.
  *
  * @package    Ibn
  * @subpackage Ibn/admin
