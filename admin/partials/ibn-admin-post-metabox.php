@@ -1,4 +1,9 @@
-<?php do_action( 'ibn_before_custom_editor_metabox' ); ?>
+<?php
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+do_action( 'ibn_before_custom_editor_metabox' ); ?>
     <div class="ibn-post-fields">
         <div class="ibn-post-field">
             <input type="checkbox" name="ibn_breaking_news_post_id" class="post-format" id="ibn-mark-breaking-news"

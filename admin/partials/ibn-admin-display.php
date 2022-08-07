@@ -8,6 +8,11 @@
  * @package    Ibn
  * @subpackage Ibn/admin/partials
  */
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 ?>
 <div class="wrap">
     <h1><?php esc_html_e( 'Breaking News Settings', 'ibn' ); ?></h1>

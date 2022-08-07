@@ -8,6 +8,11 @@
  * To override this file, copy this file to the active theme's root directory /ibn-templates/ibn-public-display.php directory.
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 $bar_options = Ibn_Settings::get_general_settings();
 // check if user choose to show the bar on the front-end.
 if ( isset( $bar_options['ibn-active'] ) && $bar_options['ibn-active'] !== 1 ) {

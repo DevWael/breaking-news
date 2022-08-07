@@ -21,6 +21,12 @@
  * @subpackage Ibn/includes
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
+
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 class Ibn_Loader {
 
 	/**
