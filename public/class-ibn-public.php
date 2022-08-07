@@ -21,7 +21,6 @@
  * @author     Ahmad Wael <dev.ahmedwael@gmail.com>
  */
 class Ibn_Public {
-
 	/**
 	 * The ID of this plugin.
 	 *
@@ -88,17 +87,7 @@ class Ibn_Public {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ibn_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ibn_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		// check if the bar should be displayed.
 		if ( ! $this->can_display_bar() ) {
 			return;
 		}
@@ -117,25 +106,16 @@ class Ibn_Public {
 	 */
 	public function enqueue_scripts() {
 
+		// check if the bar should be displayed.
 		if ( ! $this->can_display_bar() ) {
 			return;
 		}
 
+		// load general plugin options.
 		$options = $this->breaking_news_options();
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ibn_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ibn_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
+		// add needed js logic to the front-end so the bar can be displayed in place properly.
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ibn-public.js', array( 'jquery' ), $this->version, true );
+		// send header placement settings to the front end.
 		wp_localize_script( $this->plugin_name, 'ibn_obj', array(
 			'header_placement' => isset( $options['ibn-bar-placement'] ) ? esc_js( $options['ibn-bar-placement'] ) : 'automatic',
 			'header_selector'  => isset( $options['ibn-css-selector'] ) ? esc_js( $options['ibn-css-selector'] ) : '',
@@ -165,17 +145,19 @@ class Ibn_Public {
 		if ( 'publish' !== get_post_status( $post_id ) ) {
 			$status = false;
 		}
+		// check if expiry date toggle is active
 		$post_expiry_toggle = get_post_meta( $post_id, 'ibn_post_expiry_date_toggle', true );
 		if ( $post_expiry_toggle ) {
 			$post_expiry_date = get_post_meta( $post_id, 'ibn_post_expiry_date', true );
 			if ( $post_expiry_date ) {
 				$date_object = DateTime::createFromFormat( 'Y-m-d\TH:i', $post_expiry_date );
-				if ( ! $date_object ) {
-					$status = false;
-				}
-				//check if the date is expired.
-				if ( $date_object->getTimestamp() < time() ) {
-					$status = false;
+				// check if the date is valid date before we check if it is expired.
+				// only pay attention to the expiry date toggle if the date is valid.
+				if ( $date_object ) {
+					//check if the date is expired.
+					if ( $date_object->getTimestamp() < time() ) {
+						$status = false;
+					}
 				}
 			}
 		}
@@ -196,6 +178,7 @@ class Ibn_Public {
 		remove_action( 'get_header', [ $this, 'modify_header' ] );
 		// Run the function get_header with the arguments specified from the theme.
 		get_header( $name, $args );
+		// check if the bar should be displayed.
 		if ( $this->can_display_bar() ) {
 			// Include the breaking news bar template.
 			if ( file_exists( get_template_directory() . '/ibn-templates/ibn-public-display.php' ) ) {
@@ -217,7 +200,7 @@ class Ibn_Public {
 	 * @return mixed|string
 	 */
 	public function append_to_fse_themes( $block_content, $block ) {
-
+		// check if the bar should be displayed.
 		if ( ! $this->can_display_bar() ) {
 			return $block_content;
 		}
